@@ -1,0 +1,63 @@
+/**
+ * Magnet Snap Pull Gravity - Core Preset
+ * Simulates a magnetic attraction phase, a quick snap, and a gravitational settle.
+ */
+
+:root {
+  --ease-magnet-snap-pull-gravity-duration: 750ms;
+  --ease-magnet-snap-pull-gravity-timing: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-magnet-snap-pull-gravity-delay: 0ms;
+}
+
+@keyframes ease-magnet-snap-pull-gravity {
+  0% {
+    opacity: 0;
+    transform: translateY(-80px) scale(0.85);
+  }
+  /* Magnet Phase: Slow tension buildup pull */
+  35% {
+    opacity: 0.8;
+    transform: translateY(-15px) scale(0.96);
+  }
+  /* Snap Phase: Overshoot snap toward target */
+  65% {
+    opacity: 1;
+    transform: translateY(8px) scale(1.03);
+  }
+  /* Gravity Phase: Heavy natural drop settle */
+  85% {
+    transform: translateY(-2px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ease-anim-magnet-snap-pull-gravity {
+  animation-name: ease-magnet-snap-pull-gravity;
+  animation-duration: var(--ease-magnet-snap-pull-gravity-duration);
+  animation-timing-function: var(--ease-magnet-snap-pull-gravity-timing);
+  animation-delay: var(--ease-magnet-snap-pull-gravity-delay);
+  animation-fill-mode: both;
+  will-change: transform, opacity;
+}
+
+/* Accessibility: Hardware-safe reduced motion override */
+@media (prefers-reduced-motion: reduce) {
+  .ease-anim-magnet-snap-pull-gravity {
+    animation-name: ease-magnet-snap-pull-gravity-reduced;
+    animation-duration: 200ms;
+    animation-timing-function: ease-out;
+    will-change: opacity;
+  }
+
+  @keyframes ease-magnet-snap-pull-gravity-reduced {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
